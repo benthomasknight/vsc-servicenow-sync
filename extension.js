@@ -1,12 +1,15 @@
 const vscode = require('vscode');
 const fs = require('fs');
 const path = require('path');
-const tableFieldList = require('./tables');
+let tableFieldList = require('./tables');
+const settings = vscode.workspace.getConfiguration('servicenow-sync');
+vscode.showInformationMessage(JSON.stringify(settings));
 const _ = require('lodash');
 const request = require('request');
 const jsdiff = require('diff');
 const glob = require('glob');
 const opn = require('opn');
+
 
 var ServiceNowSync = (function () {
     function ServiceNowSync() {
@@ -248,7 +251,7 @@ var ServiceNowSync = (function () {
             fields = _.uniq(fields);
         }
 
-        if (typeof query === 'undefined') {
+        if (typeof query === 'object') {
             _this.listRecords(settings.table, fields, query, displayRecordList);
         } else {
             _this.listRecords(settings.table, fields, query, displayRecordConfirmation);
