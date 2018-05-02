@@ -17,14 +17,14 @@
   ],
   "main": "./extension",
   "contributes": {
-    "configuration":{
-      "type":"object",
-      "title":"SN Sync Configuration",
+    "configuration": {
+      "type": "object",
+      "title": "SN Sync Configuration",
       "properties": {
-        "snTableConfig":{
-          "type":"object",
-          "default":{},
-          "description":"Additional table configurations"
+        "snTableConfig": {
+          "type": "object",
+          "default": {},
+          "description": "Additional table configurations"
         }
       }
     },

@@ -1,9 +1,7 @@
 const vscode = require('vscode');
 const fs = require('fs');
 const path = require('path');
-let tableFieldList = require('./tables');
-const settings = vscode.workspace.getConfiguration('servicenow-sync');
-vscode.showInformationMessage(JSON.stringify(settings));
+// let tableFieldList = require('./tables');
 const _ = require('lodash');
 const request = require('request');
 const jsdiff = require('diff');
@@ -14,6 +12,9 @@ const opn = require('opn');
 var ServiceNowSync = (function () {
     function ServiceNowSync() {
         let subscriptions = [];
+
+        let tables = require('./tables');
+        this.tableFieldList = Object.assign(tables, vscode.workspace.getConfiguration("snTableConfig"));
 
         subscriptions.push(vscode.commands.registerCommand('sn_sync.enterConnectionSettings', this.enterConnectionSettings, this));
         subscriptions.push(vscode.commands.registerCommand('sn_sync.syncTable', this.syncTable, this));
@@ -162,9 +163,12 @@ var ServiceNowSync = (function () {
     }
 
     ServiceNowSync.prototype.isSynced = function () {
-        let rootFolder = vscode.workspace.workspaceFolders[0].uri._fsPath;
-        let file = path.resolve(rootFolder, 'service-now.json');
-        return fs.existsSync(file);
+        if(vscode.workspace.workspaceFolders && vscode.workspace.workspaceFolders.length > 0){
+            let rootFolder = vscode.workspace.workspaceFolders[0].uri._fsPath;
+            let file = path.resolve(rootFolder, 'service-now.json');
+            return fs.existsSync(file);
+        }
+        return true;
     }
 
     ServiceNowSync.prototype.getRootSettings = function () {
