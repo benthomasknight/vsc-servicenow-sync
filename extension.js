@@ -197,14 +197,14 @@ var ServiceNowSync = (function () {
     ServiceNowSync.prototype.syncTable = function () {
         let _this = this;
 
-        let quickPickOptions = _.map(tableFieldList, (obj, key) => {
+        let quickPickOptions = _.map(this.tableFieldList, (obj, key) => {
             return key
         });
 
         vscode.window.showQuickPick(quickPickOptions).then((table) => {
-            if (typeof tableFieldList[table] !== 'undefined') {
-                if (tableFieldList[table].length === 1) _this.createSingleFolder(table);
-                if (tableFieldList[table].length > 1) _this.createMultiFolder(table);
+            if (typeof this.tableFieldList[table] !== 'undefined') {
+                if (this.tableFieldList[table].length === 1) _this.createSingleFolder(table);
+                if (this.tableFieldList[table].length > 1) _this.createMultiFolder(table);
             }
         });
     }
@@ -433,7 +433,7 @@ var ServiceNowSync = (function () {
     ServiceNowSync.prototype.createSingleFolder = function (table) {
         let _this = this;
         let rootFolder = vscode.workspace.workspaceFolders[0].uri._fsPath;
-        let tableOptions = tableFieldList[table][0];
+        let tableOptions = this.tableFieldList[table][0];
         let folderPath = path.resolve(rootFolder, table);
         let folderSettings = {
             "files": {},
@@ -466,7 +466,7 @@ var ServiceNowSync = (function () {
             _this.writeSettings(rootFolderPath, rootFolderSettings);
         }
 
-        _.each(tableFieldList[table], (tableOptions) => {
+        _.each(this.tableFieldList[table], (tableOptions) => {
             let subFolderPath = path.resolve(rootFolder, table, tableOptions.field);
             let folderSettings = {
                 "files": {},
