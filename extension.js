@@ -3,6 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const _ = require('lodash');
 const request = require('request');
+const tables = require('./tables');
 const jsdiff = require('diff');
 const glob = require('glob');
 const opn = require('opn');
@@ -11,9 +12,7 @@ const html2plain = require('html2plaintext');
 var ServiceNowSync = (function() {
   function ServiceNowSync() {
     let subscriptions = [];
-
-    let tables = require('./tables');
-    this.tableFieldList = Object.assign(tables, vscode.workspace.getConfiguration('snTableConfig'));
+    this.tableFieldList = this.getTableFieldList();
 
     subscriptions.push(
       vscode.commands.registerCommand('sn_sync.enterConnectionSettings', this.enterConnectionSettings, this)
@@ -31,6 +30,10 @@ var ServiceNowSync = (function() {
     this.outputChannel = vscode.window.createOutputChannel('SN-Sync');
     this._disposable = vscode.Disposable.from.apply(vscode.Disposable, subscriptions);
   }
+
+  ServiceNowSync.prototype.getTableFieldList = function() {
+    return Object.assign({}, tables, vscode.workspace.getConfiguration('snTableConfig'));
+  };
 
   ServiceNowSync.prototype.pushFile = function(event) {
     let _this = this;
@@ -306,6 +309,7 @@ var ServiceNowSync = (function() {
 
   ServiceNowSync.prototype.syncTable = function() {
     let _this = this;
+    this.tableFieldList = this.getTableFieldList();
 
     let quickPickOptions = _.map(this.tableFieldList, (obj, key) => {
       return key;
@@ -532,8 +536,10 @@ var ServiceNowSync = (function() {
   };
 
   ServiceNowSync.prototype.createSingleFolder = function(table) {
+    this.tableFieldList = this.getTableFieldList();
     let _this = this;
     let rootFolder = vscode.workspace.workspaceFolders[0].uri._fsPath;
+
     let tableOptions = this.tableFieldList[table][0];
     let folderPath = path.resolve(rootFolder, table);
     let folderSettings = {
@@ -551,6 +557,7 @@ var ServiceNowSync = (function() {
   };
 
   ServiceNowSync.prototype.createMultiFolder = function(table) {
+    this.tableFieldList = this.getTableFieldList();
     let _this = this;
     let rootFolder = vscode.workspace.workspaceFolders[0].uri._fsPath;
     let rootFolderPath = path.resolve(rootFolder, table);
