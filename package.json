@@ -54,27 +54,35 @@
     "commands": [
       {
         "command": "sn_sync.syncTable",
-        "title": "SNOW - Sync Table"
+        "title": "SNOW: Sync Table"
       },
       {
         "command": "sn_sync.enterConnectionSettings",
-        "title": "SNOW - Connect To ServiceNow"
+        "title": "SNOW: Connect To ServiceNow"
       },
       {
         "command": "sn_sync.syncRecord",
-        "title": "SNOW - Sync Record"
+        "title": "SNOW: Sync Record"
       },
       {
         "command": "sn_sync.syncMultipleRecords",
-        "title": "SNOW - Sync Multiple Records"
+        "title": "SNOW: Sync Multiple Records"
       },
       {
         "command": "sn_sync.openRecordInBrowser",
-        "title": "SNOW - Open Record In Browser"
+        "title": "SNOW: Open Record In Browser"
       },
       {
         "command": "sn_sync.compareFile",
-        "title": "SNOW - Compare File To Server"
+        "title": "SNOW: Compare File To Server"
+      },
+      {
+        "command": "sn_sync.openEvalDocument",
+        "title": "SNOW: Open Empty Javascript File"
+      },
+      {
+        "command": "sn_sync.evalScript",
+        "title": "SNOW: Execute current file"
       }
     ]
   },
@@ -96,6 +104,7 @@
   "dependencies": {
     "diff": "^3.4.0",
     "glob": "^7.1.2",
+    "html2plaintext": "^2.1.0",
     "lodash": "^4.17.4",
     "opn": "^5.1.0",
     "request": "^2.88.0"

@@ -131,7 +131,7 @@ var ServiceNowSync = (function() {
       'User-Agent': 'VSC-SERVICENOW-SYNC',
       'Accept-Encoding': 'gzip, deflate',
       'Accept-Language': 'en-US,en;q=0.8',
-      'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+      'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
     };
     var authHeader = rootSettings.auth.replace('Basic ', '');
     var authDecoded = new Buffer(authHeader, 'base64').toString('ascii');
@@ -146,8 +146,8 @@ var ServiceNowSync = (function() {
         user_name: authDecoded.split(':')[0],
         user_password: authDecoded.split(':')[1],
         remember_me: 'true',
-        sys_action: 'sysverb_login'
-      }
+        sys_action: 'sysverb_login',
+      },
     };
 
     vscode.window.setStatusBarMessage('⏳ Executing Code in ServiceNow ...', 2000);
@@ -168,8 +168,8 @@ var ServiceNowSync = (function() {
           sysparm_ck: sysparm_ck,
           sys_scope: scope,
           runscript: 'Run script',
-          quota_managed_transaction: 'on'
-        }
+          quota_managed_transaction: 'on',
+        },
       };
       request(evalOptions, function(error, response, body) {
         cb(html2plain(body));
@@ -186,7 +186,7 @@ var ServiceNowSync = (function() {
         let quickPickItems = _.map(result, function(obj) {
           return {
             detail: obj.sys_id,
-            label: obj.name
+            label: obj.name,
           };
         });
         quickPickItems.unshift({ detail: 'rhino.global', label: 'Global' });
@@ -209,7 +209,7 @@ var ServiceNowSync = (function() {
     vscode.workspace
       .openTextDocument({
         content: '//write your code you want to execute\n',
-        language: 'javascript'
+        language: 'javascript',
       })
       .then(doc => vscode.window.showTextDocument(doc))
       .then(editor => {
@@ -233,7 +233,7 @@ var ServiceNowSync = (function() {
         if (val == '') return 'Please enter a valid value.';
 
         return null;
-      }
+      },
     };
 
     let usernamePromptOptions = {
@@ -243,7 +243,7 @@ var ServiceNowSync = (function() {
         if (val == '') return 'Please enter a valid value.';
 
         return null;
-      }
+      },
     };
 
     let passwordPromptOptions = {
@@ -254,7 +254,7 @@ var ServiceNowSync = (function() {
         if (val == '') return 'Please enter a valid value.';
 
         return null;
-      }
+      },
     };
 
     vscode.window.showInputBox(instancePromptOptions).then(val => {
@@ -266,7 +266,7 @@ var ServiceNowSync = (function() {
           _this.createConnectionFile({
             url: url,
             username: username,
-            password: password
+            password: password,
           });
         });
       });
@@ -298,7 +298,7 @@ var ServiceNowSync = (function() {
     let rootFolder = vscode.workspace.workspaceFolders[0].uri._fsPath;
     let settings = {
       instance: params.url,
-      auth: 'Basic ' + new Buffer(params.username + ':' + params.password).toString('base64')
+      auth: 'Basic ' + new Buffer(params.username + ':' + params.password).toString('base64'),
     };
 
     _this.writeSettings(rootFolder, settings);
@@ -327,7 +327,7 @@ var ServiceNowSync = (function() {
       validateInput: val => {
         if (val == '') return 'Please enter a valid value.';
         return null;
-      }
+      },
     };
 
     vscode.window.showInputBox(queryPromptOptions).then(function(val) {
@@ -423,7 +423,7 @@ var ServiceNowSync = (function() {
     function recordListToQuickPickItems(obj) {
       return {
         detail: obj.sys_id,
-        label: obj[settings.display]
+        label: obj[settings.display],
       };
     }
   };
@@ -436,8 +436,8 @@ var ServiceNowSync = (function() {
       method: 'GET',
       url: rootSettings.instance + '/api/now/table/' + table,
       headers: {
-        Authorization: rootSettings.auth
-      }
+        Authorization: rootSettings.auth,
+      },
     };
   };
 
@@ -482,7 +482,7 @@ var ServiceNowSync = (function() {
 
     options.qs = {
       sysparm_fields: fields,
-      sysparm_query: typeof query !== 'undefined' ? query : ''
+      sysparm_query: typeof query !== 'undefined' ? query : '',
     };
 
     _this.executeRequest(options, cb);
@@ -507,9 +507,9 @@ var ServiceNowSync = (function() {
         cb(results);
       } else {
         vscode.window.showErrorMessage('Error 0161:' + error);
-      }
 
-      cb(null);
+        cb(null);
+      }
     }
   };
 
@@ -541,7 +541,7 @@ var ServiceNowSync = (function() {
       extension: tableOptions.extension,
       table: table,
       display: 'name',
-      field: tableOptions.field
+      field: tableOptions.field,
     };
 
     if (!fs.existsSync(folderPath)) {
@@ -558,7 +558,7 @@ var ServiceNowSync = (function() {
     let rootFolderSettings = {
       multi: true,
       display: 'name',
-      table: table
+      table: table,
     };
 
     if (!fs.existsSync(rootFolderPath)) {
@@ -573,7 +573,7 @@ var ServiceNowSync = (function() {
         extension: tableOptions.extension,
         table: table,
         display: 'name',
-        field: tableOptions.field
+        field: tableOptions.field,
       };
 
       if (!fs.existsSync(subFolderPath)) {
