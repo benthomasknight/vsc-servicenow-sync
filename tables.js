@@ -634,7 +634,7 @@ module.exports = {
     },
     {
       field: 'css',
-      extension: 'css',
+      extension: 'scss',
     },
     {
       field: 'link',
