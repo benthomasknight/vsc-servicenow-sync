@@ -1,11 +1,12 @@
 {
-  "name": "servicenow-sync",
-  "author": "Sal Costa <costas0811@hotmail.com> (http://anerrantprogrammer.com",
-  "displayName": "ServiceNow Sync",
+  "name": "bk-servicenow-sync",
+  "author": "Ben Knight <benthomasknight@gmail.com>",
+  "displayName": "Maintained ServiceNow Sync",
   "description": "Sync records from ServiceNow to local files using VSC",
   "version": "0.1.2",
   "license": "MIT",
-  "publisher": "anerrantprogrammer",
+  "publisher": "benthomasknight",
+  "repository": "https://github.com/benthomasknight/vsc-servicenow-sync",
   "engines": {
     "vscode": "^1.18.0"
   },
@@ -53,27 +54,27 @@
     "commands": [
       {
         "command": "sn_sync.syncTable",
-        "title": "Sync Table"
+        "title": "SNOW - Sync Table"
       },
       {
         "command": "sn_sync.enterConnectionSettings",
-        "title": "Connect To ServiceNow"
+        "title": "SNOW - Connect To ServiceNow"
       },
       {
         "command": "sn_sync.syncRecord",
-        "title": "Sync Record"
+        "title": "SNOW - Sync Record"
       },
       {
         "command": "sn_sync.syncMultipleRecords",
-        "title": "Sync Multiple Records"
+        "title": "SNOW - Sync Multiple Records"
       },
       {
         "command": "sn_sync.openRecordInBrowser",
-        "title": "Open Record In Browser"
+        "title": "SNOW - Open Record In Browser"
       },
       {
         "command": "sn_sync.compareFile",
-        "title": "Compare File To Server"
+        "title": "SNOW - Compare File To Server"
       }
     ]
   },
@@ -82,17 +83,21 @@
     "test": "node ./node_modules/vscode/bin/test"
   },
   "devDependencies": {
-    "typescript": "^2.6.1",
-    "vscode": "^1.1.6",
-    "eslint": "^4.6.1",
+    "@types/mocha": "^2.2.42",
     "@types/node": "^7.0.43",
-    "@types/mocha": "^2.2.42"
+    "eslint": "^5.8.0",
+    "eslint-config-prettier": "^3.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-prettier": "^3.0.0",
+    "prettier": "1.14.3",
+    "typescript": "^2.6.1",
+    "vscode": "^1.1.21"
   },
   "dependencies": {
     "diff": "^3.4.0",
     "glob": "^7.1.2",
     "lodash": "^4.17.4",
     "opn": "^5.1.0",
-    "request": "^2.83.0"
+    "request": "^2.88.0"
   }
 }
